@@ -18,21 +18,19 @@ namespace MinimumToStart
 
             var context = new ApplicationDbContext(applicationOptionsBuilder.Options);
 
-            await context.Database.EnsureDeletedAsync();
+            await context.Database.EnsureCreatedAsync();
 
-            //await context.Database.EnsureCreatedAsync();
+            var person = new Person
+            {
+                Name = "Cédric Michel"
+            };
 
-            //var person = new Person
-            //{
-            //    Name = "Cédric Michel"
-            //};
+            await context.Persons.AddAsync(person);
+            await context.SaveChangesAsync();
 
-            //await context.Persons.AddAsync(person);
-            //await context.SaveChangesAsync();
+            var dataBasePerson = await context.Persons.FirstOrDefaultAsync();
 
-            //var dataBasePerson = context.Persons.FirstOrDefault();
-
-            //Console.WriteLine(dataBasePerson.Name);
+            Console.WriteLine(dataBasePerson.Name);
 
         }
     }
