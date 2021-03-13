@@ -14,23 +14,25 @@ namespace MinimumToStart
             Console.WriteLine("Hello World!");
 
             var applicationOptionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            applicationOptionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=MinimumToStart");
-
+            applicationOptionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Configuration");
 
             var context = new ApplicationDbContext(applicationOptionsBuilder.Options);
-            await context.Database.EnsureCreatedAsync();
 
-            var person = new Person
-            {
-                Name = "Cédric Michel"
-            };
+            await context.Database.EnsureDeletedAsync();
 
-            await context.Persons.AddAsync(person);
-            await context.SaveChangesAsync();
+            //await context.Database.EnsureCreatedAsync();
 
-            var dataBasePerson = context.Persons.FirstOrDefault();
+            //var person = new Person
+            //{
+            //    Name = "Cédric Michel"
+            //};
 
-            Console.WriteLine(dataBasePerson.Name);
+            //await context.Persons.AddAsync(person);
+            //await context.SaveChangesAsync();
+
+            //var dataBasePerson = context.Persons.FirstOrDefault();
+
+            //Console.WriteLine(dataBasePerson.Name);
 
         }
     }
